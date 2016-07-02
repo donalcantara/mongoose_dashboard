@@ -60,8 +60,11 @@ app.post('/add', function(req, res) {
 })
 //the route to delete 
 app.get('/delete/:id', function(req, res) {
+  //below, 'remove' is deleting what you want deleted
   Dashboard.remove({_id: req.params.id}, function (err, whatever){
+    //you're removing by ID that you give it and then it'll give you back an error if it encounters one.
     res.redirect('/');
+    //redirect to root route
   })
 })
 //send to edit page
@@ -73,8 +76,9 @@ app.get('/editpage/:id', function (req, res){
       //you're rendering the edit page and the object you retrieved from the database is called animal
   })
 })
-//from the edit page to update the item in the database
+//from the edit page to update the item in the database.  first, you'll have the request and then the response.
 app.post('/edit/:id', function (req, res){
+  //below, dashboard is the collection, update is the task, _id is finding the item by it's ID  and then setting the name and species by the req.body.name and req.body.species.  after all that, redirect to the root and it'll show.
     Dashboard.update({_id: req.params.id}, {name: req.body.name, species: req.body.species}, function (err, user){
         res.redirect('/');
     })
