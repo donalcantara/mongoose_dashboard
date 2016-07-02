@@ -58,20 +58,20 @@ app.post('/add', function(req, res) {
     }
   })
 })
-
+//delete 
 app.get('/delete/:id', function(req, res) {
   Dashboard.remove({_id: req.params.id}, function (err, whatever){
     res.redirect('/');
   })
 })
-
+//send to edit page
 app.get('/editpage/:id', function (req, res){
   Dashboard.findOne({_id: req.params.id}, function (err, animal){
       console.log(animal);
       res.render('edit', {animal: animal});
   })
 })
-
+//from the edit page to update the item in the database
 app.post('/edit/:id', function (req, res){
     Dashboard.update({_id: req.params.id}, {name: req.body.name, species: req.body.species}, function (err, user){
         res.redirect('/');
