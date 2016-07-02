@@ -33,13 +33,13 @@ var Dashboard = mongoose.model('Dashboard') // We are retrieving this Schema fro
 
 app.get('/', function(req, res) {
 	Dashboard.find({}, function(err, animals) {
-	
+	//animals is the object you retrieved from the database
 		console.log(animals);
 
 	    res.render('index', {animals: animals});
+      //you're rendering the index page and getting the object animals from the database to show on the index
 
 	})
-    // This is where we will retrieve the users from the database and include them in the view page we will be rendering.
 })
 
 // Add User Request 
@@ -58,7 +58,7 @@ app.post('/add', function(req, res) {
     }
   })
 })
-//delete 
+//the route to delete 
 app.get('/delete/:id', function(req, res) {
   Dashboard.remove({_id: req.params.id}, function (err, whatever){
     res.redirect('/');
@@ -66,9 +66,11 @@ app.get('/delete/:id', function(req, res) {
 })
 //send to edit page
 app.get('/editpage/:id', function (req, res){
+  //findOne is to just find the one item that you want to edit/update
   Dashboard.findOne({_id: req.params.id}, function (err, animal){
       console.log(animal);
       res.render('edit', {animal: animal});
+      //you're rendering the edit page and the object you retrieved from the database is called animal
   })
 })
 //from the edit page to update the item in the database
