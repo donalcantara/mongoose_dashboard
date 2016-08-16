@@ -3,8 +3,7 @@ var express = require("express");
 // Create an Express App
 var app = express();
 var mongoose = require('mongoose');
-// This is how we connect to the mongodb database using mongoose -- "basic_mongoose" is the name of
-//   our db in mongodb -- this should match the name of the db you are going to use for your project.
+// "basic_mongoose" is the name of our db in mongodb
 mongoose.connect('mongodb://localhost/basic_mongoose');
 // Require body-parser (to receive post data from clients)
 var bodyParser = require("body-parser");
@@ -16,19 +15,15 @@ var path = require("path");
 app.use(express.static(__dirname + "./static"));
 // Setting our Views Folder Directory
 app.set('views', path.join(__dirname, './views'));
-// Setting our View Engine set to EJS
+// Setting the View Engine set to EJS
 app.set('view engine', 'ejs');
-// Routes
-// Root Request
-
-//var Schema = mongoose.Schema;
 
 var DashboardSchema = new mongoose.Schema({
  name: String,
  species: String
 })
-mongoose.model('Dashboard', DashboardSchema); // We are setting this Schema in our Models as 'User'
-var Dashboard = mongoose.model('Dashboard') // We are retrieving this Schema from our Models, named 'User'
+mongoose.model('Dashboard', DashboardSchema);
+var Dashboard = mongoose.model('Dashboard')
 
 
 app.get('/', function(req, res) {
@@ -76,9 +71,9 @@ app.get('/editpage/:id', function (req, res){
       //you're rendering the edit page and the object you retrieved from the database is called animal
   })
 })
-//from the edit page to update the item in the database.  first, you'll have the request and then the response.
+//from the edit page to update the item in the database.  first, request and then the response.
 app.post('/edit/:id', function (req, res){
-  //below, dashboard is the collection, update is the task, _id is finding the item by it's ID  and then setting the name and species by the req.body.name and req.body.species.  after all that, redirect to the root and it'll show.
+  //below, dashboard is the collection, update is the task, _id is finding the item by it's ID and then setting the name and species by the req.body.name and req.body.species.  after all that, redirect to the root and it'll show.
     Dashboard.update({_id: req.params.id}, {name: req.body.name, species: req.body.species}, function (err, user){
         res.redirect('/');
     })
